@@ -1,6 +1,7 @@
 # The `stealcaps` package
 
-This package enables you to borrow small capitals from another font.
+This package enables you to borrow small capitals
+from another font than the main document font.
 For that simply load the package and specify the replacement font
 vie the key-value-option 'from', i.e.
 
