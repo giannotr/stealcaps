@@ -18,44 +18,28 @@ fi
 PKG=$2;
 PREV_VERSION=$4;
 
-# Compile PKG
-latex $PKG.ins;
-
 # Compile documentation
 pdflatex $PKG.dtx;
 pdflatex $PKG.dtx;
 
 # Store files in tds compliant directories
-PKG_DIR=$PKG.tds;
+PKG_DIR=$PKG;
 
 mkdir $PKG_DIR;
-mkdir $PKG_DIR/doc;
-mkdir $PKG_DIR/source;
-mkdir $PKG_DIR/tex;
 
-mkdir $PKG_DIR/doc/latex;
-mkdir $PKG_DIR/source/latex;
-mkdir $PKG_DIR/tex/latex;
+cp README.md $PKG_DIR;
+cp $PKG.pdf $PKG_DIR;
+cp $PKG.dtx $PKG_DIR;
+cp $PKG.ins $PKG_DIR;
 
-mkdir $PKG_DIR/doc/latex/$PKG;
-mkdir $PKG_DIR/source/latex/$PKG;
-mkdir $PKG_DIR/tex/latex/$PKG;
-
-cp README.md $PKG_DIR/doc/latex/$PKG;
-cp $PKG.pdf $PKG_DIR/doc/latex/$PKG;
-
-cp $PKG.dtx $PKG_DIR/source/latex/$PKG;
-cp $PKG.ins $PKG_DIR/source/latex/$PKG;
-
-cp $PKG.sty $PKG_DIR/tex/latex/$PKG;
-rm $PKG.sty;
+cp -r testfile $PKG_DIR;
 
 # Bundle to zip
 
-cp $PKG.tds.zip $PKG-v$PREV_VERSION.tds.zip;
-rm $PKG.tds.zip;
+cp $PKG.zip $PKG-v$PREV_VERSION.zip;
+rm $PKG.zip;
 
-zip -vr $PKG.tds.zip $PKG_DIR/ -x "*.DS_Store";
+zip -vr $PKG.zip $PKG_DIR/ -x "*.DS_Store";
 rm -r $PKG_DIR;
 
 echo "bundle.sh:" $PKG "package and documentation successfully compiled and bundled";

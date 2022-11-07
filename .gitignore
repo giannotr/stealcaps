@@ -11,12 +11,9 @@
 *.out
 *.log
 
-# Bundle directory
-
-/*.tds
-
 # Previous version bundles
 
+*v*.zip
 *v*.tds.zip
 
 # System files

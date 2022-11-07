@@ -1,0 +1,26 @@
+% arara: xelatex
+\documentclass{article}
+\usepackage[from={EB Garamond}]{stealcaps}
+% or try
+% \usepackage{stealcaps}
+% \renewcaps{Cormorant SC}
+
+\usepackage{titlesec}
+  \titleformat{\section}
+    {\scshape\normalsize\MakeLowercase}{\thesection}{1em}{}
+
+\usepackage{lipsum}
+
+\newcommand*\pkg{\textsc}
+
+\title{Test file for the \pkg{stealcaps} package}
+\author{Ruben Giannotti}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Lorem ipsum}
+
+\lipsum[3]
+\end{document}
