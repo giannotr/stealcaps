@@ -11,7 +11,7 @@ In case you use pdfLaTeX the font name has to be NFSS compliant.
 With XeLaTeX or LuaLaTeX, correpsondingly,
 it has to be `fontspec` compliant.
 
-Furthermore in Xe(La)TeX or Lua(La)TeX you can use `\renewcaps`
+Furthermore in Xe(La)TeX or Lua(La)TeX you can use `\renewcaps{<font name>}`
 to load a dedicated only small capitals font like
 
 		\renewcaps{Cormorant SC}.
