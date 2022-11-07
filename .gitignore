@@ -1,0 +1,25 @@
+# The compiled package
+
+*.sty
+
+# Documentation compilation auxiliary files
+
+*.dvi
+*.hd
+*.idx
+*.aux
+*.out
+*.log
+
+# Bundle directory
+
+/*.tds
+
+# Previous version bundles
+
+*v*.tds.zip
+
+# System files
+
+.DS_store
+

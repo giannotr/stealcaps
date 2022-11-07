@@ -11,11 +11,16 @@ In case you use pdfLaTeX the font name has to be NFSS compliant.
 With XeLaTeX or LuaLaTeX, correpsondingly,
 it has to be `fontspec` compliant.
 
+Furthermore in Xe(La)TeX or Lua(La)TeX you can use `\renewcaps`
+to load a dedicated only small capitals font like
+
+		\renewcaps{Cormorant SC}.
+
 Package dependencies: `pgfopts`, `iftex`, `fontspec`.
 
 This is version 1.0 of the package.
 
-Copyright (C) 2018 by Ruben Giannotti
+Copyright (C) 2018-2022 by Ruben Giannotti
 
 ---
 

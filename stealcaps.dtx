@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2018 by Ruben Giannotti 
+% Copyright (C) 2018-2022 by Ruben Giannotti 
 % <ruben dot giannotti at gmx dot net>
 % -------------------------------------------------------
 % 
@@ -30,13 +30,14 @@
 %<package>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{stealcaps}
 %<*package>
-  [2018/01/21 v1.0 Steal small capitals (RG)]
+  [2022/11/07 v1.1 Steal small capitals (RG)]
 %</package>
 %
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{amssymb,parskip}
 \providecommand*\pkg{\textsf}
+\providecommand*\vrs{\textsf}
 \providecommand*\option{\textit}
 \providecommand*\url{\texttt}
 \providecommand*\email{\texttt}
@@ -49,7 +50,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{43}
+% \CheckSum{59}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -69,6 +70,7 @@
 %
 %
 % \changes{v1.0}{2018/01/21}{Initial version}
+% \changes{v1.1}{2022/11/07}{Added the renewcaps macro for Xe(La)\TeX or Lua(La)\TeX}
 %
 % \GetFileInfo{stealcaps.dtx}
 %
@@ -113,6 +115,17 @@
 % In the first case you have to make sure the font name is NFSS compliant.
 % Otherwise, it has to be \pkg{fontspec} compliant.
 %
+% As for \vrs{v1.1} for Xe\LaTeX{} and Lua\LaTeX{} you are able
+% to use
+%
+% |\renewcaps{|\(\langle\)\textit{font name}\(\rangle\)|}|
+%
+% to override |\scshape| alltogether.
+% This is mainly meant to be used if you have a single purpose font
+% that provides only small capitals, e.g.:
+%
+% |\renewcaps{Cormorant SC}|.
+%
 % \StopEventually{}
 %
 % The implementation is rather simple and straightforward.
@@ -140,7 +153,7 @@
 %    \begin{macrocode}
 \pgfkeys{
   /stc/.cd,
-  from/.store in=\font@wildcard@stc
+  from/.store in=\font@from@stc
 }
 \ProcessPgfOptions{/stc}
 %    \end{macrocode}
@@ -164,20 +177,42 @@
 \fi
 %    \end{macrocode}
 %
-% At last, we load the replacement font
+% The replacement font is loaded by
 % employing |\font@stc| inside a group
-% and substitute the small captials fonts.
+% and substituting the small captials fonts
+% employing |\DeclareFontShape| with 'ssub'.
 %
 %    \begin{macrocode}
 \begingroup
-  \font@stc\font@wildcard@stc\selectfont@or@relax@stc
-  \DeclareFontShape{\f@encoding}{\rmdefault}{m}{sc}{%
-    <-> ssub * \f@family/m/sc
-  }{}
-  \DeclareFontShape{\f@encoding}{\rmdefault}{bx}{sc}{%
-    <-> ssub * \f@family/bx/sc
-  }{}
+  \ifx\font@from@stc\@empty\else
+    \font@stc\font@from@stc\selectfont@or@relax@stc
+    \DeclareFontShape{\f@encoding}{\rmdefault}{m}{sc}{%
+      <-> ssub * \f@family/m/sc
+    }{}
+    \DeclareFontShape{\f@encoding}{\rmdefault}{bx}{sc}{%
+      <-> ssub * \f@family/bx/sc
+    }{}
+  \fi
 \endgroup
+%    \end{macrocode}
+%
+% At last there is a user macro for XeTeX and LuaTeX environments
+% to renew |\scshape| to a dedicated only small capitals TrueType
+% or OpenType font, e.g. |\renewcaps{Cormorant SC}|.
+%
+%    \begin{macrocode}
+\newcommand*\renewcaps[1]{%
+  \ifPDFTeX
+    \typeout{%
+      You tried to use |\renewcaps| in pdfLaTeX,
+      which isn't needed.
+      Or did you mean to use XeLaTeX or LuaLaTeX?
+    }
+  \else
+    \providefontfamily\scshape{#1}%
+    \renewfontfamily\scshape{#1}%
+  \fi
+}
 %    \end{macrocode}
 %\Finale
 \endinput
