@@ -14,7 +14,7 @@ it has to be `fontspec` compliant.
 Furthermore in Xe(La)TeX or Lua(La)TeX you can use `\renewcaps{<font name>}`
 to load a dedicated only small capitals font like
 
-		\renewcaps{Cormorant SC}.
+    \renewcaps{Cormorant SC}.
 
 Package dependencies: `pgfopts`, `iftex`, `fontspec`.
 
