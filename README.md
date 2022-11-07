@@ -18,7 +18,7 @@ to load a dedicated only small capitals font like
 
 Package dependencies: `pgfopts`, `iftex`, `fontspec`.
 
-This is version 1.0 of the package.
+This is version 1.1 of the package.
 
 Copyright (C) 2018-2022 by Ruben Giannotti
 
